@@ -1,6 +1,7 @@
 // BG color
 // Ico color
 // Lib path
+// Figure size
 
 var shvp = (function () {
 

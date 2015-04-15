@@ -1,18 +1,11 @@
-// BG color
-// Ico color
-// Lib path
-// Figure size
-
-var shvp = (function () {
+(function () {
 
   function init () {
     var i;
     var v = document.getElementsByClassName("shvp");
 
-    // Flush the event cache
     addEvent(window, 'unload', EventCache.flush);
 
-    // Listen the resize event on the window
     for (i = 0; i < v.length; ++i) {
       addEvent(v[i], 'click', vClickHandler);
     }
@@ -24,7 +17,7 @@ var shvp = (function () {
     var el = this;
     var video = el.getElementsByTagName("VIDEO")[0];
     var overlay = el.getElementsByClassName("shvpOverlay")[0];
-    var playIco = overlay.getElementsByTagName("IMG")[0];
+    var playIco = overlay.getElementsByClassName("shvpPlayIco")[0];
 
     if (video.paused) {
       playIco.style.opacity = 0;
@@ -45,9 +38,23 @@ var shvp = (function () {
       overlay.className = "shvpOverlay";
       overlay.style.height = videosToCreate[i].getElementsByTagName("VIDEO")[0].offsetHeight + "px";
       overlay.style.width = videosToCreate[i].getElementsByTagName("VIDEO")[0].offsetWidth + "px";
-      var ico = document.createElement("IMG");
-      ico.src = "play-ico.svg";
-      overlay.appendChild(ico);
+
+      var svgEl = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svgEl.width = 72;
+      svgEl.height = 72;
+      svgEl.setAttribute("width", "72");
+      svgEl.setAttribute("height", "72");
+      svgEl.setAttribute("viewBox", "0 0 72 72");
+      svgEl.setAttribute("version", "1.1");
+      svgEl.setAttribute("xlmns", "http://www.w3.org/2000/svg");
+      svgEl.setAttribute("class", "shvpPlayIco");
+      overlay.appendChild(svgEl);
+
+      var pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      pathEl.setAttribute("fill", "#333333");
+      pathEl.setAttribute("d", "M36,0 C16.1172,0 0,16.1172 0,36 C0,55.8828 16.1172,72 36,72 C55.8828,72 72,55.8828 72,36 C72,16.1172 55.8828,0 36,0 L36,0 L36,0 Z M31.25,22 L48.75,36 L31.25,50 L31.25,22 L31.25,22 Z");
+      svgEl.appendChild(pathEl);
+
       videosToCreate[i].appendChild(overlay);
     }
   }
@@ -68,8 +75,6 @@ var shvp = (function () {
       obj["on"+type] = obj["e"+type+fn];
     }
   }
-
-  // Store the event cache
   var EventCache = function () {
     var listEvents = [];
     return {
@@ -96,7 +101,7 @@ var shvp = (function () {
     };
   }();
 
-  // Check wether or not the document is ready until it is ready
+
   var readyStateCheckInterval = setInterval(function() {
     if (document.readyState === "complete") {
       init();

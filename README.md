@@ -1,5 +1,5 @@
 # shvp
-A very Simple HTML Video Player
+A very Simple HTML Video Player (you can see it [at the bottom of this page](http://julienzmiro.com/case-studies/crafting-charts.html "See an example")).
 
 1) Import shvp  
 ```
